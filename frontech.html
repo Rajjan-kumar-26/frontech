@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Frontech SPA</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:#0b0f1a;
+  background:  #0b0f3d;;
+  background-color: white;
+  color:black;
+  overflow-x:hidden;
+}
+
+/* STAR BACKGROUND */
+#stars{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  color: #0b0f1a;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:12px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(10px);
+  z-index:10;
+  border-bottom: 1px solid;
+   box-shadow: 0 2px 5px gold;
+}
+.menu-btn{
+  font-size:28px;
+  cursor:pointer;
+  display:none;
+}
+
+@media(max-width:768px){
+  .menu-btn{
+    display:block;
+  }
+
+  nav{
+    position:absolute;
+    top:60px;
+    right:0;
+    background:#0b0f1a;
+    width:200px;
+    display:none;
+    flex-direction:column;
+    padding:10px;
+    border-left:1px solid gray;
+  }
+
+  nav a{
+    margin:10px 0;
+    display:block;
+  }
+
+  nav.show{
+    display:flex;
+  }
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+}
+
+nav a{
+  margin:0 10px;
+  text-decoration:none;
+  color:white;
+  font-weight:bold;
+}
+nav a:hover{
+  background-color: gold;
+  color: black;
+  width: fit-content;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+/* SECTIONS */
+.homesection{
+  height: 100vh;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  background-image: url(b8.jpg);
+  background-size: cover;
+  color: white;
+}
+
+
+section{
+  height: auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background-image: url(b7.jpg);
+  background-size: cover;
+  padding:60px 20px;
+}
+#home p{
+ /* box-shadow: 0 0 10px gold; */
+ 
+ color: white;
+ 
+}
+
+/* SERVICES */
+.grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  margin-top:20px;
+  
+
+}
+
+
+.servicesection{
+  height: auto;
+  min-height: 100vh;
+  background-image: url(b7.jpg);
+}
+.service-box{
+  width:250px;
+  height: 150px;
+  padding:15px;
+  transition:0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: url(ChatGPT\ Image\ Apr\ 25\,\ 2026\,\ 01_07_49\ AM.png);
+  background-size: cover;
+  /* border: 1px solid;
+  border-radius: 12px; */
+  
+
+}
+.service-box2{
+  width:250px;
+  height: 150px;
+  padding:15px;
+  transition:0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: url(resume.png);
+  background-size: cover;
+  /* border: 1px solid;
+  border-radius: 12px; */
+  
+
+}
+
+/* NEW: Web Development service box (no new image files used — styled with CSS only) */
+.service-box3{
+  width:250px;
+  height: 150px;
+  padding:15px;
+  transition:0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #0b0f3d 0%, #1a1440 60%, #0b0f1a 100%);
+  border: 1px solid gold;
+  border-radius: 8px;
+  color: gold;
+  position: relative;
+  overflow: hidden;
+}
+.service-box3::before{
+  content: "</>";
+  font-size: 34px;
+  font-weight: bold;
+  color: gold;
+  opacity: 0.9;
+}
+.service-box3 span{
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 0.5px;
+}
+.service-box3:hover{
+  height: 200px;
+  width: 350px;
+  box-shadow: 0 0 15px gold;
+}
+
+
+.service-box:hover{
+  /* transform:scale(1.05); */
+  /* box-shadow:0 0 3px white; */
+  height: 200px;
+  width: 350px;
+  
+  
+}
+.service-box2:hover{
+  /* transform:scale(1.05); */
+  /* box-shadow:0 0 3px white; */
+  height: 200px;
+  width: 350px;
+  /* border: 1px solid; */
+  
+}
+
+/* BUTTON */
+/* button{
+  padding:8px 12px;
+  border:1px solid gray;
+  background:transparent;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+} */
+
+/* INPUT */
+input,textarea{
+  padding:10px;
+  margin:5px;
+  width:250px;
+  border-radius:6px;
+  border:none;
+  font-family: Arial;
+}
+
+/* CONTACT BOX */
+.contact-box{
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:15px;
+  border:1px solid gray;
+  width:320px;
+  backdrop-filter:blur(10px);
+}
+
+/* WHATSAPP */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:55px;
+  height:55px;
+  background:#25D366;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration:none;
+  z-index:20;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 0 rgba(37,211,102,0.6);
+}
+
+@keyframes pulse{
+  0%{ box-shadow: 0 0 0 0 rgba(37,211,102,0.55); }
+  70%{ box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+  100%{ box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+
+.whatsapp img{
+  width:30px;
+}
+
+/* SEARCH */
+#search{
+  margin-top:10px;
+}
+
+.grid2{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  margin-top:20px;
+  
+
+}
+.box1{
+    width:200px;
+  padding:20px;
+  border:1px solid gray;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+.box1:hover{
+    transform:scale(1.05);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+.box2{
+    width:200px;
+  padding:20px;
+  border:1px solid gray;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+.box2:hover{
+    transform:scale(1.05);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+.box3{
+  width:200px;
+  padding:20px;
+  border:1px solid gray;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+.box3 ul li{
+  list-style: none;
+}
+.box3:hover{
+    transform:scale(1.05);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+
+.box4{
+  width:200px;
+  padding:20px;
+  border:1px solid gray;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+.box4:hover{
+    transform:scale(1.05);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+
+/* SCROLL FADE-IN ANIMATION */
+.fade-section{
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-section.visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CONTACT SECTION */
+#contact{
+  color: white;
+  padding-bottom: 80px;
+}
+#contact h1{ color: gold; }
+.contact-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:25px;
+  justify-content:center;
+  align-items:flex-start;
+  margin-top:25px;
+}
+.contact-box a{
+  color: gold;
+  text-decoration: none;
+}
+.contact-box a:hover{ text-decoration: underline; }
+.contact-box p{ margin: 6px 0; }
+.owner-tag{
+  margin-top: 10px;
+  font-size: 13px;
+  color: #cfcfcf;
+}
+
+/* WHATSAPP SEND BUTTON */
+.send-btn{
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #25D366;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.send-btn:hover{
+  background: #1ebe5b;
+  box-shadow: 0 0 12px rgba(37,211,102,0.7);
+  transform: translateY(-2px);
+}
+
+/* RESUME FORM */
+.resume-form-box{
+  background:rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:15px;
+  border:1px solid gray;
+  width:340px;
+  backdrop-filter:blur(10px);
+  text-align:left;
+}
+.resume-form-box h2{
+  color: gold;
+  text-align:center;
+  margin-bottom: 12px;
+}
+.resume-form-box label{
+  display:block;
+  font-size: 13px;
+  color: #d9d9d9;
+  margin: 8px 0 2px 4px;
+}
+.resume-form-box input,
+.resume-form-box textarea{
+  width: 100%;
+  margin: 0;
+}
+.resume-form-box textarea{
+  resize: vertical;
+  min-height: 70px;
+}
+.form-note{
+  font-size: 12px;
+  color: #bdbdbd;
+  margin-top: 10px;
+  text-align:center;
+}
+.form-success{
+  display:none;
+  color: #25D366;
+  font-size: 13px;
+  margin-top: 8px;
+  text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<header>
+  <div class="logo"><p style="color: white;"><a href="#home" style="text-decoration: none; color: white;">Fron<span style="color: gold;">tech</span></a></p></div>
+
+  <div class="menu-btn" onclick="toggleMenu()" style="color: white;">☰</div>
+
+  <nav id="nav">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#resume-form">Get Resume</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="homesection">
+  <h1>Welcome to <span style="color: gold;">Frontech</span>
+  <p style="font-size: 16px;">Build your Portfolio, Resume & Website at low cost with fast delivery</p>
+  </h1>
+  <div class="right">
+  <div class="homeboximage">
+
+  </div>
+  </div>
+ 
+ 
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="servicesection fade-section">
+
+  <h1 style="color:white;">Services</h1>
+
+  <!-- <input id="search" placeholder="Search services..." onkeyup="search()"> -->
+
+  <div class="grid">
+ <div class="link">
+  <a href="portfolio.html" target="_blank">
+  
+    <div class="service-box" data-name="portfolio">
+     <div class="item">
+         <!-- <h3>Portfolio</h3><br>
+      <p>Personal portfolio website</p><br> -->
+      <button>
+        <!-- <a href="portfolio.html" target="_blank" style="text-decoration: none; color: white;">open</a> -->
+      </button>
+      </div>
+    </div>
+    </a>
+    </div>
+
+   <div class="link"><a href="resume.html" target="_blank">
+    <div class="service-box2" data-name="resume">
+    
+      <!-- <h3>Resume Builder</h3>
+      <p>Professional resume website</p> -->
+    
+    </div></a></div>
+
+    <!-- NEW: General Web Development service -->
+    <div class="link">
+      <a href="#contact">
+        <div class="service-box3" data-name="web development">
+          <span>Web Development</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="fade-section" style="color: white;">
+  <h1 style="color: gold;">About <span>Frontech</span></h1>
+ <div class="grid2">
+  <div class="box1"><h3 style="color: gold;">Who I Am</h3>
+   <p>
+        Main Frontech ke through low cost me Portfolio, Resume aur Website banata hoon.
+      </p>
+  </div>
+  <div class="box2">
+     <h3 style="color: gold;">My Mission</h3>
+      <p>
+        Mera goal hai students aur beginners ko affordable web solutions provide karna.
+      </p>
+  </div>
+  <div class="box3">
+    <h3 style="color: gold;">Why Choose Me</h3>
+      <ul>
+        <li>✔ Fast Delivery</li>
+        <li>✔ Low Cost</li>
+        <li>✔ Responsive Design</li>
+        <li>✔ Modern UI</li>
+      </ul>
+  <!-- </div>
+  <div class="box4">
+    <h3>Skills</h3>
+      <p>
+        HTML, CSS, JavaScript, Responsive Design, Portfolio & Resume Websites
+      </p>
+  </div> -->
+
+  
+
+ </div>
+ <div class="cta" style="margin-top: 20px;">
+  <p>🚀 Contact now to build your portfolio, resume or website</p>
+</div>
+
+</section>
+
+<!-- RESUME FORM: fills details -> opens WhatsApp with the data prefilled -->
+<section id="resume-form" class="fade-section" style="color: white;">
+  <h1 style="color: gold;">Get Your Resume Made</h1>
+  <p style="max-width:400px;margin-top:6px;">Apna data neeche fill karo, submit karte hi WhatsApp khulega apki details ke saath — bas send dabana hoga.</p>
+
+  <div class="resume-form-box" style="margin-top:20px;">
+    <h2>Resume Form</h2>
+    <form id="resumeForm" onsubmit="return sendToWhatsapp(event)">
+      <label for="r-name">Full Name</label>
+      <input id="r-name" type="text" placeholder="e.g. Rajjan Kumar" required>
+
+      <label for="r-phone">Phone / WhatsApp Number</label>
+      <input id="r-phone" type="tel" placeholder="e.g. 98765xxxxx" required>
+
+      <label for="r-email">Email</label>
+      <input id="r-email" type="email" placeholder="e.g. you@email.com" required>
+
+      <label for="r-role">Target Role / Field</label>
+      <input id="r-role" type="text" placeholder="e.g. AWS Cloud Intern">
+
+      <label for="r-education">Education</label>
+      <input id="r-education" type="text" placeholder="e.g. BCA, 2026">
+
+      <label for="r-skills">Key Skills</label>
+      <textarea id="r-skills" placeholder="e.g. AWS, React, Node.js"></textarea>
+
+      <label for="r-message">Anything else?</label>
+      <textarea id="r-message" placeholder="Extra details, deadline, etc."></textarea>
+
+      <button type="submit" class="send-btn" style="width:100%;">Send to WhatsApp</button>
+      <p class="form-success" id="formSuccess">✅ WhatsApp open ho raha hai, ab wahan Send dabao!</p>
+      <p class="form-note">Aapka data sirf WhatsApp ke through Mayank tak jayega, kahin store nahi hota.</p>
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="fade-section">
+
+  <h1>Contact</h1>
+  <div class="contact-wrap">
+
+    <div class="contact-box">
+      <h2 style="color:gold;">Reach Out</h2>
+      <p>📞 <a href="tel:+917458944200">7458944200</a></p>
+      <p>✉️ <a href="mailto:mayankt1303@gmail.com">mayankt1303@gmail.com</a></p>
+      <p>💬 <a href="https://wa.me/917458944200" target="_blank">Chat on WhatsApp</a></p>
+      <p>📍 India</p>
+      <p class="owner-tag">Owner: Mayank</p>
+    </div>
+
+    <div class="contact-box">
+      <h2 style="color:gold;">Quick Message</h2>
+      <form id="contactForm" onsubmit="return sendContactToWhatsapp(event)">
+        <input id="c-name" placeholder="Name" required/><br/>
+        <input id="c-email" placeholder="Email" required/><br/>
+        <textarea id="c-message" placeholder="Message" required></textarea><br/>
+        <button type="submit" class="send-btn">Send on WhatsApp</button>
+      </form>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- WHATSAPP -->
+<a class="whatsapp" href="https://wa.me/917458944200" target="_blank">
+  <img src="WhatsApp_icon.png">
+</a>
+
+<script>
+
+  function toggleMenu(){
+  document.getElementById("nav").classList.toggle("show");
+}
+
+/* SEARCH */
+function search(){
+  let val=document.getElementById("search").value.toLowerCase();
+  let boxes=document.querySelectorAll(".service-box");
+
+  boxes.forEach(b=>{
+    let text=b.getAttribute("data-name");
+    b.style.display=text.includes(val)?"block":"none";
+  });
+}
+
+/* STAR BACKGROUND */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=Array(90).fill().map(()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2
+}));
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
+
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.y+=0.4;
+    if(s.y>canvas.height) s.y=0;
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener("resize", ()=>{
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+
+////highlight in searchbarr
+function search(){
+  let val = document.getElementById("search").value.toLowerCase();
+  let boxes = document.querySelectorAll(".service-box");
+
+  boxes.forEach(box => {
+
+    let original = box.getAttribute("data-original");
+    if(!original){
+      box.setAttribute("data-original", box.innerHTML);
+      original = box.innerHTML;
+    }
+
+    // reset content first
+    box.innerHTML = original;
+
+    if(val){
+      let regex = new RegExp(val, "gi");
+
+      box.innerHTML = box.innerHTML.replace(regex, match =>
+        `<mark style="background:yellow;color:black">${match}</mark>`
+      );
+    }
+  });
+}
+
+/* SCROLL FADE-IN ANIMATION */
+const fadeEls = document.querySelectorAll(".fade-section");
+const fadeObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+},{threshold:0.15});
+fadeEls.forEach(el => fadeObserver.observe(el));
+
+/* RESUME FORM -> WHATSAPP */
+const OWNER_WHATSAPP = "917458944200";
+
+function sendToWhatsapp(e){
+  e.preventDefault();
+
+  const name = document.getElementById("r-name").value.trim();
+  const phone = document.getElementById("r-phone").value.trim();
+  const email = document.getElementById("r-email").value.trim();
+  const role = document.getElementById("r-role").value.trim();
+  const education = document.getElementById("r-education").value.trim();
+  const skills = document.getElementById("r-skills").value.trim();
+  const message = document.getElementById("r-message").value.trim();
+
+  let text = "📝 *New Resume Request - Frontech*%0A";
+  text += "Name: " + name + "%0A";
+  text += "Phone: " + phone + "%0A";
+  text += "Email: " + email + "%0A";
+  if(role) text += "Target Role: " + role + "%0A";
+  if(education) text += "Education: " + education + "%0A";
+  if(skills) text += "Skills: " + skills + "%0A";
+  if(message) text += "Message: " + message + "%0A";
+
+  const url = "https://wa.me/" + OWNER_WHATSAPP + "?text=" + text;
+
+  document.getElementById("formSuccess").style.display = "block";
+  window.open(url, "_blank");
+
+  document.getElementById("resumeForm").reset();
+  return false;
+}
+
+/* CONTACT FORM -> WHATSAPP */
+function sendContactToWhatsapp(e){
+  e.preventDefault();
+
+  const name = document.getElementById("c-name").value.trim();
+  const email = document.getElementById("c-email").value.trim();
+  const message = document.getElementById("c-message").value.trim();
+
+  let text = "📩 *New Contact Message - Frontech*%0A";
+  text += "Name: " + name + "%0A";
+  text += "Email: " + email + "%0A";
+  text += "Message: " + message + "%0A";
+
+  const url = "https://wa.me/" + OWNER_WHATSAPP + "?text=" + text;
+  window.open(url, "_blank");
+
+  document.getElementById("contactForm").reset();
+  return false;
+}
+</script>
+
+</body>
+</html>

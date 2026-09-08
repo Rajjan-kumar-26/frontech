@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Frontech SPA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Manrope',Arial,sans-serif;}
+html{scroll-behavior:smooth;scroll-padding-top:78px;}
+
+:root{
+  --bg:#05070f;
+  --surface:#0c1120;
+  --gold:#f0b429;
+  --gold-soft:#f7d27a;
+  --teal:#35e0c4;
+  --text:#f2f3f7;
+  --muted:#9aa1b8;
+  --line:rgba(255,255,255,0.09);
+}
+
+h1,h2,h3{ font-family:'Space Grotesk',sans-serif; }
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* SCROLL PROGRESS BAR */
+#progress{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--gold),var(--teal));
+  z-index:60; transition:width .1s linear;
+}
+
+/* CONSTELLATION BACKGROUND */
+#stars{
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;
+}
+
+/* HEADER */
+header{
+  position:fixed; top:0; width:100%; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 28px; transition:all .35s ease;
+  border-bottom:1px solid transparent;
+}
+header.scrolled{
+  padding:10px 28px;
+  background:rgba(5,7,15,.72);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.menu-btn{ font-size:26px; cursor:pointer; display:none; color:var(--text); }
+
+.logo{
+  font-size:22px; font-weight:700; letter-spacing:.3px; cursor:pointer;
+}
+.logo span{ color:var(--gold); text-shadow:0 0 14px rgba(240,180,41,.8); }
+
+nav{ display:flex; gap:6px; align-items:center; }
+nav a{
+  text-decoration:none; color:var(--muted); font-weight:600; font-size:14.5px;
+  padding:8px 14px; border-radius:20px; transition:.25s;
+}
+nav a:hover{ color:var(--text); }
+nav a.active{
+  color:#0b0e1a; background:var(--gold); box-shadow:0 0 18px rgba(240,180,41,.45);
+}
+
+@media(max-width:820px){
+  .menu-btn{ display:block; }
+  nav{
+    position:fixed; top:0; right:0; height:100vh; width:230px;
+    background:rgba(9,12,24,.98); flex-direction:column; justify-content:center;
+    gap:6px; transform:translateX(100%); transition:transform .35s ease;
+    border-left:1px solid var(--line);
+  }
+  nav.show{ transform:translateX(0); }
+}
+
+section{
+  position:relative;
+  padding:100px 20px;
+  max-width:1180px;
+  margin:0 auto;
+}
+section:not(.homesection){
+  max-width:100%;
+  background-image: linear-gradient(180deg, rgba(5,7,15,.86), rgba(5,7,15,.93)), url(b7.jpg);
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+section:not(.homesection) > *{
+  max-width:1180px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* HERO */
+.homesection{
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding-top:120px; max-width:100%;
+  background-image: linear-gradient(180deg, rgba(5,7,15,.55), rgba(5,7,15,.82)), url(b8.jpg);
+  background-size:cover;
+  background-position:center;
+}
+.ft-orb{ position:absolute; border-radius:50%; filter:blur(80px); opacity:.35; z-index:-1; }
+.ft-orb1{ width:420px; height:420px; background:var(--gold); top:0; left:-10%; animation:drift 14s ease-in-out infinite; }
+.ft-orb2{ width:380px; height:380px; background:var(--teal); bottom:0; right:-8%; animation:drift 16s ease-in-out infinite reverse; }
+@keyframes drift{ 0%,100%{ transform:translate(0,0);} 50%{ transform:translate(30px,-20px);} }
+
+.badge{
+  display:inline-flex; align-items:center; gap:8px; padding:7px 16px; border-radius:999px;
+  border:1px solid rgba(240,180,41,.4); background:rgba(240,180,41,.08); color:var(--gold-soft);
+  font-size:13px; font-weight:600; margin-bottom:26px; animation:float 4s ease-in-out infinite;
+}
+@keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-6px);} }
+
+.homesection h1{
+  font-size:clamp(38px,7vw,72px); font-weight:700; line-height:1.08; letter-spacing:-1.5px;
+}
+.homesection h1 .grad{
+  background:linear-gradient(100deg,var(--gold) 10%,var(--gold-soft) 35%,var(--teal) 65%,var(--gold) 90%);
+  background-size:300% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:shine 6s linear infinite;
+}
+@keyframes shine{ to{ background-position:300% center; } }
+
+.homesection p.tagline{
+  margin-top:22px; max-width:600px; color:var(--muted); font-size:18px; line-height:1.6;
+}
+
+.hero-ctas{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; justify-content:center; }
+.ft-btn{
+  display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:12px;
+  font-weight:700; font-size:15px; cursor:pointer; border:none; transition:.25s;
+  text-decoration:none;
+}
+.ft-btn-primary{ background:var(--gold); color:#0b0e1a; box-shadow:0 8px 30px -8px rgba(240,180,41,.6); }
+.ft-btn-primary:hover{ transform:translateY(-3px); box-shadow:0 14px 36px -8px rgba(240,180,41,.75); }
+.ft-btn-ghost{ background:rgba(255,255,255,.05); color:var(--text); border:1px solid var(--line); }
+.ft-btn-ghost:hover{ background:rgba(255,255,255,.1); transform:translateY(-3px); }
+
+/* SECTION HEADS */
+.eyebrow{ color:var(--gold); font-weight:700; letter-spacing:2px; font-size:12.5px; text-transform:uppercase; }
+.section-title{ font-size:clamp(28px,4vw,42px); margin-top:8px; }
+.section-sub{ color:var(--muted); max-width:640px; margin-top:12px; line-height:1.7; }
+
+/* SERVICES */
+.grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; margin-top:44px;
+}
+.tilt-card{
+  position:relative; border-radius:20px; padding:32px 26px; cursor:pointer;
+  background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.08), transparent 60%), var(--surface);
+  border:1px solid var(--line); transition:transform .15s ease, box-shadow .3s ease, border-color .3s ease;
+  transform-style:preserve-3d; text-align:left; text-decoration:none; display:block;
+}
+.tilt-card:hover{ box-shadow:0 20px 50px -20px var(--accent); }
+.tilt-card .icon-wrap{
+  width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  background:color-mix(in srgb, var(--accent) 18%, transparent); color:var(--accent); margin-bottom:18px;
+  font-size:26px;
+}
+.tilt-card h3{ font-size:20px; margin-bottom:8px; color:var(--text); }
+.tilt-card p{ color:var(--muted); font-size:14.5px; line-height:1.6; }
+.tilt-card .go{ margin-top:16px; display:flex; align-items:center; gap:6px; color:var(--accent); font-weight:700; font-size:13.5px; }
+
+/* ABOUT */
+.about-intro{ max-width:780px; line-height:1.7; color:var(--muted); }
+.about-stats{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:36px 0;
+}
+.stat{ padding:20px; border-radius:16px; border:1px solid var(--line); background:var(--surface); text-align:center; }
+.stat strong{ display:block; font-size:30px; color:var(--gold); font-family:'Space Grotesk',sans-serif; }
+.stat span{ font-size:12.5px; color:var(--muted); }
+
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:10px; }
+.box1,.box2,.box3{
+  padding:24px; border-radius:16px; border:1px solid var(--line); background:var(--surface); transition:.3s;
+}
+.box1:hover,.box2:hover,.box3:hover{ transform:translateY(-4px); border-color:rgba(240,180,41,.4); }
+.box1 h3,.box2 h3,.box3 h3{ color:var(--gold); font-size:16px; margin-bottom:8px; }
+.box1 p,.box2 p,.box3 li{ color:var(--muted); font-size:14px; line-height:1.7; }
+.box3 ul{ list-style:none; }
+
+/* REVIEWS MARQUEE */
+.reviews-section{ margin-top:56px; }
+.rating-summary{ text-align:center; margin-bottom:10px; }
+.rating-score{ font-size:34px; font-weight:700; color:var(--gold); font-family:'Space Grotesk',sans-serif; }
+.stars{ color:var(--gold); letter-spacing:3px; font-size:18px; }
+
+.marquee-wrap{
+  margin-top:30px; overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+}
+.marquee-track{
+  display:flex; gap:16px; width:max-content; animation:marquee 26s linear infinite;
+}
+.marquee-wrap:hover .marquee-track{ animation-play-state:paused; }
+@keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+.review-card{
+  width:280px; flex:0 0 auto; padding:20px; border-radius:16px; border:1px solid var(--line);
+  background:var(--surface); text-align:left;
+}
+.review-card .review-stars{ color:var(--gold); margin-bottom:7px; }
+.review-card p{ color:#dfe1ea; font-size:14px; line-height:1.6; }
+.review-card strong{ display:block; margin-top:10px; color:var(--gold-soft); font-size:13px; }
+
+/* FORMS */
+.portfolio-form-box,.resume-form-box{
+  margin:32px auto 0; max-width:720px;
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border:1px solid rgba(240,180,41,.3); border-radius:22px; padding:32px; backdrop-filter:blur(14px); text-align:left;
+}
+.portfolio-form-box h2,.resume-form-box h2{ color:var(--gold); text-align:center; margin-bottom:22px; font-size:22px; }
+.portfolio-form-box .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.portfolio-form-box input,.portfolio-form-box textarea,
+.resume-form-box input,.resume-form-box textarea{
+  width:100%; margin:0; padding:12px 14px; border:1px solid var(--line); border-radius:10px;
+  background:rgba(255,255,255,.06); color:var(--text); font-family:'Manrope',sans-serif; font-size:14.5px; outline:none;
+  transition:.2s;
+}
+.portfolio-form-box input:focus,.portfolio-form-box textarea:focus,
+.resume-form-box input:focus,.resume-form-box textarea:focus{
+  border-color:var(--gold); box-shadow:0 0 0 3px rgba(240,180,41,.15);
+}
+.portfolio-form-box textarea,.resume-form-box textarea{ min-height:88px; resize:vertical; }
+.portfolio-full{ grid-column:1/-1; }
+@media(max-width:650px){
+  .portfolio-form-box .form-grid{ grid-template-columns:1fr; }
+  .portfolio-full{ grid-column:auto; }
+}
+
+.resume-form-box label{ display:block; font-size:12.5px; color:var(--muted); font-weight:600; margin:12px 0 6px 2px; }
+.form-note{ font-size:12px; color:var(--muted); margin-top:12px; text-align:center; }
+.form-success{ display:none; color:#25D366; font-size:13px; margin-top:8px; text-align:center; }
+
+/* SEND BUTTON */
+.send-btn{
+  width:100%; margin-top:18px; padding:14px; border:none; border-radius:12px; background:#25D366; color:#fff;
+  font-weight:700; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+  transition:.25s;
+}
+.send-btn:hover{ background:#1ebe5b; box-shadow:0 10px 30px -8px rgba(37,211,102,.6); transform:translateY(-2px); }
+
+/* CONTACT */
+#contact h1{ color:var(--gold); }
+.contact-wrap{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; margin-top:36px;
+}
+.contact-box{
+  padding:28px; border-radius:18px; border:1px solid var(--line); background:var(--surface); text-align:left;
+}
+.contact-box h2{ color:var(--gold); margin-bottom:14px; font-size:18px; }
+.contact-box p{ margin:10px 0; color:var(--muted); font-size:14.5px; display:flex; align-items:center; gap:8px; }
+.contact-box a{ color:var(--text); text-decoration:none; }
+.contact-box a:hover{ color:var(--gold); }
+
+/* WHATSAPP FAB */
+.whatsapp{
+  position:fixed; bottom:22px; right:22px; width:56px; height:56px; border-radius:50%;
+  background:#25D366; display:flex; justify-content:center; align-items:center; text-decoration:none;
+  z-index:55; animation:pulse 2.2s infinite; box-shadow:0 6px 24px rgba(37,211,102,.5);
+}
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 rgba(37,211,102,.55); }
+  70%{ box-shadow:0 0 0 16px rgba(37,211,102,0); }
+  100%{ box-shadow:0 0 0 0 rgba(37,211,102,0); }
+}
+.whatsapp img{ width:28px; }
+
+/* TOAST */
+.toast{
+  position:fixed; bottom:92px; right:22px; background:#111730; border:1px solid rgba(37,211,102,.5);
+  color:#dfffe9; padding:12px 18px; border-radius:12px; font-size:13.5px; z-index:60;
+  opacity:0; transform:translateY(10px); transition:.3s; pointer-events:none;
+}
+.toast.show{ opacity:1; transform:translateY(0); }
+
+/* SCROLL FADE-IN */
+.fade-section{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+.fade-section.visible{ opacity:1; transform:translateY(0); }
+.fade-item{ opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+.fade-item.visible{ opacity:1; transform:translateY(0); }
+
+.footer{ text-align:center; padding:30px 20px 100px; color:var(--muted); font-size:13px; }
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+<canvas id="stars"></canvas>
+
+<header id="siteHeader">
+  <div class="logo" onclick="scrollToId('home')">Fron<span>tech</span></div>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <nav id="nav">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#resume-form" onclick="closeMenu()">Get Resume</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="homesection">
+  <div class="ft-orb ft-orb1"></div>
+  <div class="ft-orb ft-orb2"></div>
+  <div class="badge">✨ Portfolio · Resume · Websites</div>
+  <h1>Welcome to <span class="grad">Frontech</span></h1>
+  <p class="tagline">Apna portfolio, resume aur website banwao — low cost, fast delivery aur modern design ke saath. Students aur freshers ke liye banaya gaya digital studio.</p>
+  <div class="hero-ctas">
+    <a href="#services" class="ft-btn ft-btn-primary">🚀 Explore Services</a>
+    <a href="#contact" class="ft-btn ft-btn-ghost">💬 Talk to Us</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="fade-section">
+  <span class="eyebrow">What we offer</span>
+  <h1 class="section-title">Services</h1>
+  <p class="section-sub">Teen cheezein, ek hi jagah — apna online presence build karne ke liye sab kuch.</p>
+
+  <div class="grid">
+    <a href="#portfolio-form" class="tilt-card" style="--accent:#f0b429;">
+      <div class="icon-wrap">💻</div>
+      <h3>Portfolio Website</h3>
+      <p>Apna personal portfolio jo skills, projects aur achievements ko professionally showcase kare.</p>
+      <div class="go">Build yours →</div>
+    </a>
+
+    <a href="#resume-form" class="tilt-card" style="--accent:#35e0c4;">
+      <div class="icon-wrap">📄</div>
+      <h3>Resume Builder</h3>
+      <p>ATS-friendly, recruiter-ready resume jo aapko interview calls dilwane me help kare.</p>
+      <div class="go">Get resume →</div>
+    </a>
+
+    <a href="#contact" class="tilt-card" style="--accent:#f7d27a;">
+      <div class="icon-wrap">🌐</div>
+      <h3>Web Development</h3>
+      <p>Business ya startup ke liye responsive, modern aur fast-loading website — end to end.</p>
+      <div class="go">Get started →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="fade-section">
+  <span class="eyebrow">About Frontech</span>
+  <h1 class="section-title">Affordable, fast &amp; modern</h1>
+  <p class="section-sub about-intro">
+    Frontech ka focus simple hai: students, freshers, creators aur small businesses ke liye
+    professional digital presence ko affordable banana. Portfolio, resume aur business website
+    ko modern UI, responsive layout aur fast delivery ke saath build kiya jata hai.
+  </p>
+
+  <div class="about-stats">
+    <div class="stat"><strong data-count="48" data-suffix="h">0h</strong><span>Avg. Delivery</span></div>
+    <div class="stat"><strong data-count="100" data-suffix="%">0%</strong><span>Responsive Design</span></div>
+    <div class="stat"><strong data-count="5" data-suffix=".0★">0★</strong><span>Client Rating</span></div>
+    <div class="stat"><strong data-count="24" data-suffix="/7">0/7</strong><span>WhatsApp Support</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="box1 fade-item"><h3>⚡ What We Build</h3>
+      <p>Portfolio websites, job-ready resumes, personal brands, landing pages aur small-business websites.</p>
+    </div>
+    <div class="box2 fade-item"><h3>🛡️ Our Promise</h3>
+      <p>Clean design, mobile-friendly experience, clear communication aur practical delivery timeline.</p>
+    </div>
+    <div class="box3 fade-item"><h3>⏱️ Why Frontech?</h3>
+      <ul>
+        <li>✔ Fast Delivery</li>
+        <li>✔ Low Cost</li>
+        <li>✔ Responsive Design</li>
+        <li>✔ Modern UI</li>
+        <li>✔ Direct WhatsApp Support</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="reviews-section">
+    <div class="rating-summary">
+      <h2 style="color:var(--gold);">Ratings &amp; Reviews</h2>
+      <div class="rating-score">5.0</div>
+      <div class="stars">★★★★★</div>
+    </div>
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marqueeTrack">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>Portfolio ka design clean aur mobile par bhi achcha laga. Delivery bhi fast thi.</p>
+          <strong>— Student Client</strong>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>Resume ko professional format me present karne me kaafi help mili. Communication easy raha.</p>
+          <strong>— Fresher Client</strong>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>Small business website ke liye simple aur modern look chahiye tha, exactly wahi mila.</p>
+          <strong>— Business Client</strong>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>Deadline se pehle hi delivery mil gayi, quality bhi top-notch thi.</p>
+          <strong>— Startup Founder</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:26px; text-align:center;">
+    <p>🚀 Contact now to build your portfolio, resume or website</p>
+  </div>
+</section>
+
+<!-- PORTFOLIO FORM -->
+<section id="portfolio-form" class="fade-section">
+  <span class="eyebrow">Let's build</span>
+  <h1 class="section-title">Build Your Portfolio</h1>
+  <p class="section-sub">Apni details fill karo. Submit karte hi WhatsApp khulega aur portfolio requirements ready format me chali jayengi.</p>
+
+  <div class="portfolio-form-box">
+    <h2>Portfolio Details</h2>
+    <form id="portfolioForm" onsubmit="return sendPortfolioToWhatsapp(event)">
+      <div class="form-grid">
+        <input id="p-name" type="text" placeholder="Full Name" required>
+        <input id="p-phone" type="tel" placeholder="Phone / WhatsApp" required>
+        <input id="p-email" type="email" placeholder="Email" required>
+        <input id="p-role" type="text" placeholder="Role / Profession">
+        <input id="p-location" type="text" placeholder="City / Location">
+        <input id="p-linkedin" type="text" placeholder="LinkedIn / GitHub link">
+        <input id="p-skills" class="portfolio-full" type="text" placeholder="Skills (HTML, AWS, React...)">
+        <textarea id="p-about" class="portfolio-full" placeholder="About yourself / short bio"></textarea>
+        <textarea id="p-projects" class="portfolio-full" placeholder="Projects, achievements or services"></textarea>
+        <textarea id="p-style" class="portfolio-full" placeholder="Preferred design, colors, deadline, etc."></textarea>
+      </div>
+      <button type="submit" class="send-btn">📤 Send Portfolio Details to WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<!-- RESUME FORM -->
+<section id="resume-form" class="fade-section">
+  <span class="eyebrow">Career ready</span>
+  <h1 class="section-title">Get Your Resume Made</h1>
+  <p class="section-sub">Apna data neeche fill karo, submit karte hi WhatsApp khulega apki details ke saath — bas send dabana hoga.</p>
+
+  <div class="resume-form-box">
+    <h2>Resume Form</h2>
+    <form id="resumeForm" onsubmit="return sendToWhatsapp(event)">
+      <label for="r-name">Full Name</label>
+      <input id="r-name" type="text" placeholder="e.g. Rajjan Kumar" required>
+
+      <label for="r-phone">Phone / WhatsApp Number</label>
+      <input id="r-phone" type="tel" placeholder="e.g. 98765xxxxx" required>
+
+      <label for="r-email">Email</label>
+      <input id="r-email" type="email" placeholder="e.g. you@email.com" required>
+
+      <label for="r-role">Target Role / Field</label>
+      <input id="r-role" type="text" placeholder="e.g. AWS Cloud Intern">
+
+      <label for="r-education">Education</label>
+      <input id="r-education" type="text" placeholder="e.g. BCA, 2026">
+
+      <label for="r-skills">Key Skills</label>
+      <textarea id="r-skills" placeholder="e.g. AWS, React, Node.js"></textarea>
+
+      <label for="r-message">Anything else?</label>
+      <textarea id="r-message" placeholder="Extra details, deadline, etc."></textarea>
+
+      <button type="submit" class="send-btn">📤 Send to WhatsApp</button>
+      <p class="form-success" id="formSuccess">✅ WhatsApp open ho raha hai, ab wahan Send dabao!</p>
+      <p class="form-note">Aapka data sirf WhatsApp ke through Mayank tak jayega, kahin store nahi hota.</p>
+    </form>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="fade-section">
+  <span class="eyebrow">Get in touch</span>
+  <h1 class="section-title">Contact</h1>
+  <div class="contact-wrap">
+    <div class="contact-box">
+      <h2>Reach Out</h2>
+      <p>📞 <a href="tel:+917458944200">7458944200</a></p>
+      <p>✉️ <a href="mailto:mayankt1303@gmail.com">mayankt1303@gmail.com</a></p>
+      <p>💬 <a href="https://wa.me/917458944200" target="_blank">Chat on WhatsApp</a></p>
+      <p>📍 India</p>
+    </div>
+
+    <div class="contact-box">
+      <h2>Quick Message</h2>
+      <form id="contactForm" onsubmit="return sendContactToWhatsapp(event)">
+        <input id="c-name" placeholder="Name" required style="margin-bottom:10px;"/>
+        <input id="c-email" placeholder="Email" required style="margin-bottom:10px;"/>
+        <textarea id="c-message" placeholder="Message" required style="margin-bottom:10px;"></textarea>
+        <button type="submit" class="send-btn">📤 Send on WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="footer">© <span id="year"></span> Frontech — Built with ♥ by Rajjan Kumar</div>
+
+<!-- WHATSAPP -->
+<a class="whatsapp" href="https://wa.me/917458944200" target="_blank" aria-label="Chat on WhatsApp">
+  <img src="WhatsApp_icon.png" alt="WhatsApp">
+</a>
+
+<div class="toast" id="toast"></div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* MENU */
+function toggleMenu(){ document.getElementById("nav").classList.toggle("show"); }
+function closeMenu(){ document.getElementById("nav").classList.remove("show"); }
+
+/* HEADER SHRINK + SCROLL PROGRESS */
+const header = document.getElementById("siteHeader");
+const progressBar = document.getElementById("progress");
+window.addEventListener("scroll", ()=>{
+  header.classList.toggle("scrolled", window.scrollY > 30);
+  const h = document.documentElement;
+  const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+  progressBar.style.width = (Math.min(1, Math.max(0, p)) * 100) + "%";
+});
+
+function scrollToId(id){
+  document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
+}
+
+/* ACTIVE NAV LINK ON SCROLL */
+const navLinks = document.querySelectorAll("nav a");
+const navSections = [...navLinks].map(a => document.querySelector(a.getAttribute("href")));
+const navObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = "#" + entry.target.id;
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === id));
+    }
+  });
+}, {rootMargin:"-40% 0px -50% 0px", threshold:0});
+navSections.forEach(s => s && navObserver.observe(s));
+
+/* REACTIVE CONSTELLATION STAR BACKGROUND */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let stars = [];
+const mouse = {x:-9999, y:-9999};
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const count = Math.min(120, Math.floor((canvas.width * canvas.height) / 14000));
+  stars = Array.from({length:count}).map(()=>({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*1.6 + 0.4,
+    vx: (Math.random()-0.5)*0.15,
+    vy: Math.random()*0.12 + 0.03,
+    tw: Math.random()*Math.PI*2
+  }));
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+window.addEventListener("mouseleave", () => { mouse.x = -9999; mouse.y = -9999; });
+
+function animateStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  stars.forEach((s,i)=>{
+    s.tw += 0.02;
+    s.x += s.vx;
+    s.y += s.vy;
+    if(s.y > canvas.height){ s.y = 0; s.x = Math.random()*canvas.width; }
+    if(s.x > canvas.width) s.x = 0;
+    if(s.x < 0) s.x = canvas.width;
+
+    const twinkle = 0.5 + Math.sin(s.tw)*0.5;
+
+    const dx = s.x - mouse.x, dy = s.y - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if(dist < 140){
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(240,180,41,${(1 - dist/140) * 0.5})`;
+      ctx.lineWidth = 0.6;
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(mouse.x, mouse.y);
+      ctx.stroke();
+    }
+
+    for(let j=i+1; j<stars.length; j++){
+      const o = stars[j];
+      const ddx = s.x-o.x, ddy = s.y-o.y;
+      const d2 = ddx*ddx + ddy*ddy;
+      if(d2 < 85*85){
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(120,140,190,${0.12 * (1 - d2/7225)})`;
+        ctx.lineWidth = 0.4;
+        ctx.moveTo(s.x,s.y);
+        ctx.lineTo(o.x,o.y);
+        ctx.stroke();
+      }
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(245,245,255,${0.35 + twinkle*0.5})`;
+    ctx.arc(s.x, s.y, s.r * (0.8 + twinkle*0.5), 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animateStars);
+}
+animateStars();
+
+/* SCROLL FADE-IN ANIMATION (sections + about boxes) */
+const fadeEls = document.querySelectorAll(".fade-section, .fade-item");
+const fadeObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add("visible");
+  });
+},{threshold:0.15});
+fadeEls.forEach(el => fadeObserver.observe(el));
+
+/* COUNT-UP STATS */
+const counters = document.querySelectorAll(".stat strong[data-count]");
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = parseFloat(el.getAttribute("data-count"));
+      const suffix = el.getAttribute("data-suffix") || "";
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min(1, (now - start)/duration);
+        const eased = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    }
+  });
+},{threshold:0.4});
+counters.forEach(el => counterObserver.observe(el));
+
+/* 3D TILT ON SERVICE CARDS */
+document.querySelectorAll(".tilt-card").forEach(card=>{
+  card.addEventListener("mousemove", e=>{
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width;
+    const y = (e.clientY - r.top)/r.height;
+    const rx = (0.5 - y) * 10;
+    const ry = (x - 0.5) * 10;
+    card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+    card.style.setProperty("--mx", (x*100)+"%");
+    card.style.setProperty("--my", (y*100)+"%");
+  });
+  card.addEventListener("mouseleave", ()=>{
+    card.style.transform = "perspective(700px) rotateX(0) rotateY(0) translateY(0)";
+  });
+});
+
+/* TOAST */
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(()=> t.classList.remove("show"), 3200);
+}
+
+/* RESUME FORM -> WHATSAPP */
+const OWNER_WHATSAPP = "917458944200";
+
+function sendToWhatsapp(e){
+  e.preventDefault();
+
+  const name = document.getElementById("r-name").value.trim();
+  const phone = document.getElementById("r-phone").value.trim();
+  const email = document.getElementById("r-email").value.trim();
+  const role = document.getElementById("r-role").value.trim();
+  const education = document.getElementById("r-education").value.trim();
+  const skills = document.getElementById("r-skills").value.trim();
+  const message = document.getElementById("r-message").value.trim();
+
+  let text = "📝 *New Resume Request - Frontech*%0A";
+  text += "Name: " + name + "%0A";
+  text += "Phone: " + phone + "%0A";
+  text += "Email: " + email + "%0A";
+  if(role) text += "Target Role: " + role + "%0A";
+  if(education) text += "Education: " + education + "%0A";
+  if(skills) text += "Skills: " + skills + "%0A";
+  if(message) text += "Message: " + message + "%0A";
+
+  const url = "https://wa.me/" + OWNER_WHATSAPP + "?text=" + text;
+
+  document.getElementById("formSuccess").style.display = "block";
+  showToast("✅ WhatsApp open ho raha hai, ab wahan Send dabao!");
+  window.open(url, "_blank");
+
+  document.getElementById("resumeForm").reset();
+  return false;
+}
+
+/* PORTFOLIO FORM -> WHATSAPP */
+function sendPortfolioToWhatsapp(e){
+  e.preventDefault();
+
+  const fields = {
+    name: document.getElementById("p-name").value.trim(),
+    phone: document.getElementById("p-phone").value.trim(),
+    email: document.getElementById("p-email").value.trim(),
+    role: document.getElementById("p-role").value.trim(),
+    location: document.getElementById("p-location").value.trim(),
+    linkedin: document.getElementById("p-linkedin").value.trim(),
+    skills: document.getElementById("p-skills").value.trim(),
+    about: document.getElementById("p-about").value.trim(),
+    projects: document.getElementById("p-projects").value.trim(),
+    style: document.getElementById("p-style").value.trim()
+  };
+
+  let text = "🌐 *New Portfolio Request - Frontech*%0A";
+  text += "Name: " + encodeURIComponent(fields.name) + "%0A";
+  text += "Phone: " + encodeURIComponent(fields.phone) + "%0A";
+  text += "Email: " + encodeURIComponent(fields.email) + "%0A";
+  if(fields.role) text += "Role: " + encodeURIComponent(fields.role) + "%0A";
+  if(fields.location) text += "Location: " + encodeURIComponent(fields.location) + "%0A";
+  if(fields.linkedin) text += "LinkedIn/GitHub: " + encodeURIComponent(fields.linkedin) + "%0A";
+  if(fields.skills) text += "Skills: " + encodeURIComponent(fields.skills) + "%0A";
+  if(fields.about) text += "About: " + encodeURIComponent(fields.about) + "%0A";
+  if(fields.projects) text += "Projects/Achievements: " + encodeURIComponent(fields.projects) + "%0A";
+  if(fields.style) text += "Design/Deadline: " + encodeURIComponent(fields.style) + "%0A";
+
+  const url = "https://wa.me/" + OWNER_WHATSAPP + "?text=" + text;
+  showToast("✅ WhatsApp open ho raha hai, ab Send dabao!");
+  window.open(url, "_blank");
+  document.getElementById("portfolioForm").reset();
+  return false;
+}
+
+/* CONTACT FORM -> WHATSAPP */
+function sendContactToWhatsapp(e){
+  e.preventDefault();
+
+  const name = document.getElementById("c-name").value.trim();
+  const email = document.getElementById("c-email").value.trim();
+  const message = document.getElementById("c-message").value.trim();
+
+  let text = "📩 *New Contact Message - Frontech*%0A";
+  text += "Name: " + name + "%0A";
+  text += "Email: " + email + "%0A";
+  text += "Message: " + message + "%0A";
+
+  const url = "https://wa.me/" + OWNER_WHATSAPP + "?text=" + text;
+  showToast("✅ WhatsApp open ho raha hai!");
+  window.open(url, "_blank");
+
+  document.getElementById("contactForm").reset();
+  return false;
+}
+</script>
+
+</body>
+</html>

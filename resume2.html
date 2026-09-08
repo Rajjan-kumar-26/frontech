@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frontech Resume Form</title>
+
+<style>
+body{
+  font-family:Arial;
+  background:#0b0f1a;
+  color:white;
+  margin:0;
+}
+
+/* SECTION */
+section{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* FORM BOX */
+.form-box{
+  width:350px;
+  padding:25px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border:1px solid gray;
+  text-align:center;
+}
+
+.form-box h2{
+  margin-bottom:15px;
+}
+
+/* INPUT */
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border-radius:6px;
+  border:none;
+  outline:none;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:#007bff;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<section>
+
+<div class="form-box">
+
+<h2>📩 Resume Request Form</h2>
+
+<input id="name" placeholder="Full Name">
+<input id="role" placeholder="Job Role">
+<input id="phone" placeholder="Phone Number">
+
+<input id="skills" placeholder="Skills">
+<input id="college" placeholder="College Name">
+
+<input id="project1" placeholder="Project 1">
+<textarea id="feature1" placeholder="Project 1 Features"></textarea>
+
+<input id="project2" placeholder="Project 2">
+<textarea id="feature2" placeholder="Project 2 Features"></textarea>
+
+<button onclick="sendEmail()">Send Email</button>
+
+</div>
+
+</section>
+
+<script>
+
+function sendEmail(){
+
+let name = document.getElementById("name").value;
+let role = document.getElementById("role").value;
+let phone = document.getElementById("phone").value;
+let skills = document.getElementById("skills").value;
+let college = document.getElementById("college").value;
+
+let project1 = document.getElementById("project1").value;
+let feature1 = document.getElementById("feature1").value;
+
+let project2 = document.getElementById("project2").value;
+let feature2 = document.getElementById("feature2").value;
+
+/* SUBJECT */
+let subject = "New Resume Request";
+
+/* BODY */
+let body = `New Resume Request:
+
+Name: ${name}
+Role: ${role}
+Phone: ${phone}
+
+College: ${college}
+Skills: ${skills}
+
+Project 1: ${project1}
+${feature1}
+
+Project 2: ${project2}
+${feature2}
+`;
+
+/* MAIL LINK */
+let mailto = `mailto:mayankt1303@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+window.location.href = mailto;
+
+}
+
+</script>
+
+</body>
+</html>`

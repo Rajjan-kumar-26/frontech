@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Development - Frontech</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+  background:#0b0f1a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* STAR BG */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:12px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(10px);
+}
+
+a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:40px;
+}
+
+/* GRID */
+.grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  padding:40px 20px;
+}
+
+/* BOX */
+.box{
+  width:220px;
+  padding:15px;
+  border:1px solid gray;
+  border-radius:10px;
+  transition:0.3s;
+  background:rgba(255,255,255,0.03);
+  cursor:pointer;
+}
+
+.box:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+
+.box h3{
+  margin-bottom:8px;
+}
+
+.box p{
+  font-size:13px;
+  opacity:0.8;
+}
+
+button{
+  margin-top:10px;
+  padding:6px 10px;
+  border:1px solid gray;
+  background:transparent;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:white;
+  color:black;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<header>
+  <a href="index.html">⬅ Back</a>
+  <div>Frontech Web Development</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Web Development Services</h1>
+  <p>Create modern, responsive & interactive websites</p>
+</section>
+
+<!-- PROJECT BOXES -->
+<section>
+
+<div class="grid">
+
+  <div class="box">
+    <h3>Portfolio Website</h3>
+    <p>Personal branding website</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Business Website</h3>
+    <p>Company landing page</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>E-Commerce</h3>
+    <p>Online shopping store</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Blog Website</h3>
+    <p>Article publishing platform</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Resume Site</h3>
+    <p>Online CV builder</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Education Site</h3>
+    <p>Online learning platform</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Restaurant Site</h3>
+    <p>Food ordering website</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Admin Dashboard</h3>
+    <p>Data management panel</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Chat App UI</h3>
+    <p>Messaging interface</p>
+    <button>Build</button>
+  </div>
+
+  <div class="box">
+    <h3>Landing Page</h3>
+    <p>Marketing conversion page</p>
+    <button>Build</button>
+  </div>
+
+</div>
+
+</section>
+
+<script>
+
+/* STAR ANIMATION */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=Array(120).fill().map(()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2
+}));
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
+
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.y+=0.4;
+    if(s.y>canvas.height)s.y=0;
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+</script>
+
+</body>
+</html>

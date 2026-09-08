@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder - Frontech</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:#0b0f1a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* STAR BACKGROUND */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(10px);
+  z-index:10;
+}
+
+/* LOGO */
+.logo{
+  font-size:20px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* SECTIONS */
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:80px 20px;
+}
+
+/* HOME CARDS */
+.grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.card{
+  width:220px;
+  border:1px solid gray;
+  border-radius:10px;
+  padding:10px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+.card img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+/* FORM */
+.form-box{
+  width:380px;
+  padding:20px;
+  border:1px solid gray;
+  border-radius:12px;
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(10px);
+}
+
+input,textarea,select{
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border-radius:6px;
+  border:none;
+  outline:none;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:1px solid gray;
+  background:transparent;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:white;
+  color:black;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- STAR CANVAS -->
+<canvas id="stars"></canvas>
+
+<!-- HEADER -->
+<header>
+  <a href="frontech.html" style="text-decoration:none;color:white;">
+    <div class="logo">FRONTECH</div>
+  </a>
+</header>
+
+<!-- HOME -->
+<section id="home">
+  <h1>Build Professional Resume</h1>
+  <p>Create ATS friendly resumes easily</p>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4">
+      <p>Modern Resume</p>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df">
+      <p>Corporate Resume</p>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
+      <p>Creative Resume</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section id="form">
+
+  <form class="form-box"
+  action="mailto:mayankt1303@gmail.com"
+  method="post"
+  enctype="text/plain">
+
+    <h2>Resume Form</h2>
+
+    <input name="Name" placeholder="Full Name">
+    <input name="Email" placeholder="Email Address">
+    <input name="Phone" placeholder="Phone Number">
+
+    <input name="GitHub" placeholder="GitHub Link">
+    <input name="LinkedIn" placeholder="LinkedIn Profile">
+
+    <input name="Certification" placeholder="Certification (AWS, Google etc)">
+
+    <input name="Degree" placeholder="Degree (BCA, BTech etc)">
+    <input name="PassingYear" placeholder="Passing Year (2024-2027)">
+
+    <input name="Skills" placeholder="Technical Skills (HTML, CSS, JS, AWS)">
+    <input name="Strength" placeholder="Strength (Team Work, Quick Learner)">
+
+    <input name="ProjectName" placeholder="Project Name">
+    <input name="TechUsed" placeholder="Technology Used">
+
+    <textarea name="ProjectFeatures" placeholder="Project Features"></textarea>
+
+    <input name="DreamJob" placeholder="Dream Job Role">
+
+    <select name="JobRole">
+      <option>Frontend Developer</option>
+      <option>Backend Developer</option>
+      <option>Full Stack Developer</option>
+      <option>Cloud Engineer</option>
+      <option>Other</option>
+    </select>
+
+    <textarea name="About" placeholder="About Yourself"></textarea>
+
+    <button type="submit">Send Resume</button>
+
+  </form>
+
+</section>
+
+<script>
+
+/* STAR ANIMATION */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=Array(120).fill().map(()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2
+}));
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
+
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.y+=0.4;
+    if(s.y>canvas.height)s.y=0;
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+</script>
+
+</body>
+</html>
