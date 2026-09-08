@@ -20,7 +20,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ arn:aws:iam::019226871793:role/frontech-s3-fullaccess }}
           aws-region: ap-south-1
 
       - name: Deploy to S3
