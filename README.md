@@ -100,6 +100,43 @@ The Target Group performs **health checks** on the registered EC2 instances and 
 
 
 
+##### AMI Creation & EC2 Auto Deployment
+
+![ami](https://github.com/Rajjan-kumar-26/frontech/blob/eccdf279c2878a31987f58da83c7bcfee824fff2/screenshot%20project%20archtech/ami.png)
+
+A custom **Amazon Machine Image (AMI)** is created from a configured EC2 instance. The AMI contains the required operating system configuration, installed Nginx web server, application files, and other required settings.
+
+The custom AMI is then used in the **Launch Template**. When the Auto Scaling Group requires a new instance, it automatically launches an EC2 instance from this AMI with the same pre-configured environment.
+
+**Deployment Flow:**
+
+Configured EC2 Instance
+↓
+Create Custom AMI
+↓
+AMI Added to Launch Template
+↓
+Auto Scaling Group
+↓
+Automatically Launch EC2 Instance
+↓
+Target Group Auto Registration
+↓
+Health Check
+↓
+ALB Traffic Distribution
+
+**Benefits:**
+
+* Faster EC2 deployment.
+* Consistent server configuration.
+* No need to manually install Nginx on every new instance.
+* New instances are ready with the required application environment.
+* Useful for reliable Auto Scaling deployments.
+
+
+
+
 
 
 
