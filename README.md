@@ -221,7 +221,7 @@ After Nginx is started, the EC2 instance works as a web server and can serve the
 
 EC2 Launch → EC2 Connect → System Update → Nginx Install → Start Nginx → Health Check → Target Group → ALB
 
-
+![web live](https://github.com/Rajjan-kumar-26/frontech/blob/22db7ccfd2cb67a612d26ce31a1a76a7092004cf/screenshot%20project%20archtech/Screenshot%202026-09-10%20224634.png)
 
 
 
